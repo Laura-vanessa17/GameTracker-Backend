@@ -25,4 +25,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+// 🔥 ELIMINAR un juego (PEGA ESTO)
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const juegoEliminado = await Juego.findByIdAndDelete(id);
+
+    if (!juegoEliminado) {
+      return res.status(404).json({ mensaje: "Juego no encontrado" });
+    }
+
+    res.json({ mensaje: "Juego eliminado correctamente" });
+  } catch (error) {
+    res.status(500).json({ mensaje: "Error al eliminar el juego", error });
+  }
+});
+
 export default router;
